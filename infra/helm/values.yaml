@@ -1,0 +1,11 @@
+deployment:
+  replicas: 1
+
+config:
+  greeting: 'Hello World.'
+
+git:
+  url: https://github.com/gmodzelewski/octo-happiness-mqtt-producer.git
+    
+feature:
+  - observability
