@@ -10,11 +10,5 @@ spec:
   - name: http-main
     port: 8080
     targetPort: http-main
-  - name: https-main
-    port: 8443
-    targetPort: http-main
-  - name: artemis
-    port: 5672
-    targetPort: artemis
   selector:
     {{- include "app.matchLabels" . | indent 4 }}

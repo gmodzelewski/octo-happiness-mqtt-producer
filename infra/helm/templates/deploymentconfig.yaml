@@ -41,9 +41,6 @@ spec:
             - name: http-main
               containerPort: 8080
               protocol: TCP
-            - name: artemis
-              containerPort: 5642
-              protocol: TCP
           resources: {}
           securityContext:
             privileged: false
