@@ -53,7 +53,7 @@ items:
       journalType: nio
       managementRBACEnabled: true
       messageMigration: false
-      requireLogin: true
+      requireLogin: false
       persistenceEnabled: true
       enableMetricsPlugin: true
       size: 2
