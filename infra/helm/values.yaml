@@ -8,5 +8,7 @@ feature:
   - observability
 
 amqbroker:
+  username: admin
+  password: admin
   servicename: ex-aao-amqp-acceptor-0-svc
   serviceport: 5672
