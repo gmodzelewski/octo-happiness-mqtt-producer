@@ -52,6 +52,9 @@ spec:
               type: RuntimeDefault
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+          envFrom:  
+            - configMapRef:
+                name: {{ include "app.fullname" . }}-config
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
