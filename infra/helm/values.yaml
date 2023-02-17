@@ -7,6 +7,6 @@ git:
 feature:
   - observability
 
-amq-broker:
-  service-name: ex-aao-amqp-acceptor-0-svc
-  service-port: 5672
+amqbroker:
+  servicename: ex-aao-amqp-acceptor-0-svc
+  serviceport: 5672

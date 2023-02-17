@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "app.fullname" . }}-config
 data:
-  MP_MESSAGING_CONNECTOR_SMALLRYE-AMQP_HOST: {{ coalesce .Values.amq-broker.service-name "ex-aao-amqp-acceptor-0-svc" }}
-  MP_MESSAGING_CONNECTOR_SMALLRYE-AMQP_PORT: {{ coalesce .Values.amq-broker.service-port "5672" }}
+  MP_MESSAGING_CONNECTOR_SMALLRYE-AMQP_HOST: {{ coalesce .Values.amqbroker.servicename "ex-aao-amqp-acceptor-0-svc" }}
+  MP_MESSAGING_CONNECTOR_SMALLRYE-AMQP_PORT: {{ coalesce .Values.amqbroker.serviceport "5672" }}
