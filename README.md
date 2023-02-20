@@ -4,6 +4,7 @@ Maurizio's image link to the artemis cli: [quay image of simple shell](quay.io/m
 
 ## Deployment steps:
 
+1. deploy prerequisites.yaml via `oc apply -f prerequisites.yaml`
 1. set amq broker service acceptor name in [`application.properties`](src/main/resources/application.properties) file
 1. Set request size accordingly in the [`index.html`](src/main/resources/META-INF/resources/index.html) (set via javascript is not so nice, I know)
 1. build & deploy via maven or helm and tekton
