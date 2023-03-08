@@ -15,7 +15,5 @@ Maurizio's image link to the artemis cli: [quay image of simple shell](quay.io/m
 ```
 
 ### build via tekton:
-```sh
-helm upgrade -i producer infra/helm
-```
 
+use the octo-happiness helm chart with the design "mqtt-producer"
