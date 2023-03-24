@@ -48,6 +48,11 @@ COPY --chown=1001 target/quarkus-app/*.jar /deployments/
 COPY --chown=1001 target/quarkus-app/app/ /deployments/app/
 COPY --chown=1001 target/quarkus-app/quarkus/ /deployments/quarkus/
 
+# Reset permissions of modified directories and add default user
+RUN rpm-file-permissions && \
+  useradd -u 1001 -r -g 0 -d target/quarkus-app -s /sbin/nologin \
+      -c "Default Application User" default 
+
 EXPOSE 8080
 EXPOSE 8443
 EXPOSE 9000
