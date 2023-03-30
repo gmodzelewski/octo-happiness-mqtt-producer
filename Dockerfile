@@ -27,7 +27,7 @@ ARG JAVA_PACKAGE=java-17-openjdk-headless
 ARG RUN_JAVA_VERSION=1.3.8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 # Install java and the run-java script
-# Also set up permissions for user `1001`
+# Also set up permissions for user `1000770000`
 RUN microdnf install curl ca-certificates ${JAVA_PACKAGE} \
   && microdnf update \
   && microdnf clean all \
@@ -44,14 +44,14 @@ RUN rpm -e --nodeps $(rpm -qa '*rpm*' '*dnf*' '*libsolv*' '*hawkey*' 'yum*')
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=1001 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=1001 target/quarkus-app/*.jar /deployments/
-COPY --chown=1001 target/quarkus-app/app/ /deployments/app/
-COPY --chown=1001 target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY --chown=1000770000 target/quarkus-app/lib/ /deployments/lib/
+COPY --chown=1000770000 target/quarkus-app/*.jar /deployments/
+COPY --chown=1000770000 target/quarkus-app/app/ /deployments/app/
+COPY --chown=1000770000 target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 EXPOSE 8443
 EXPOSE 9000
-USER 1001
+USER 1000770000
 
 ENTRYPOINT [ "/deployments/run-java.sh" ]
