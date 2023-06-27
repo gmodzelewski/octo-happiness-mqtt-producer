@@ -35,23 +35,52 @@
     });
 
     function postRequest() {
+        const startTime = Date.now();
         fetch("/quotes/request", {
             method: "POST"
         })
             .then(res => res.text())
             .then(qid => {
-                var row = $(`<h4 class='col-md-12' id='${qid}'>Quote # <i>${qid}</i> | <strong>Pending</strong></h4>`);
+                var row = $(`<h4 class='col-md-12' id='${qid}' data-time="${startTime}">Quote # <i>${qid}</i> | <strong>Pending</strong></h4>`);
                 $(".quotes").append(row);
             });
     }
 
-    var source = new EventSource("/quotes");
-    source.onmessage = (event) => {
-        var json = JSON.parse(event.data);
-        var estimated = Math.abs(Date.now() - json.requestStartTime);
-        $(`#${json.id}`).html(function (index, html) {
+    function waitForElm(selector) {
+        return new Promise(resolve => {
+            if (document.getElementById(selector)) {
+                return resolve(document.getElementById(selector));
+            }
+    
+            const observer = new MutationObserver(mutations => {
+                if (document.getElementById(selector)) {
+                    resolve(document.getElementById(selector));
+                    observer.disconnect();
+                }
+            });
+    
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    async function updateElement(json, finishTime) {
+        // We need to wait for the Element we want to update, because it is created asynchronously and might not exist, yet.
+        // This should not affect time metric, since we measure it separately before updating.
+        const object = $(await waitForElm(json.id));
+        const estimated = Math.abs(finishTime - object.data('time'));
+        object.html(function (index, html) {
             return html.replace("Pending", `\$\xA0${json.price} - \t Request took ${json.requestTimeInMs}ms - Overall took ${estimated}ms`);
         });
+    }
+    
+    var source = new EventSource("/quotes");
+    source.onmessage = (event) => {
+        const finishTime = Date.now();
+        const json = JSON.parse(event.data);
+        updateElement(json, finishTime);
     };
 </script>
 
